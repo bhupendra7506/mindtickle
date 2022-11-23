@@ -11,7 +11,7 @@ class LocustRun(HttpUser):
     wait_time = constant(0.1)
 
     @events.test_start.add_listener
-    def on_test_start(self, **kwargs):
+    def on_test_start(environment, **kwargs):
         print("on test start")
 
     def on_start(self):

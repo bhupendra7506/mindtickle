@@ -5,7 +5,8 @@ from configurations import serverConfig
 from services.utils.commonUtils import fileUtils
 
 host_url = serverConfig.AUTHORS_SERVICE_HOST
-resources_folder = fileUtils.getProjectRootDir() + os.sep + "mindtickle" + os.sep + "services" + os.sep + "resources" + os.sep + "authorsService"
+resources_folder = fileUtils.getProjectRootDir() + os.sep + "resources" + os.sep \
+                   + "authorsService"
 
 
 def get_authors():
@@ -13,11 +14,11 @@ def get_authors():
 
 
 def add_author(id, book_id, firstName, lastName):
-    body_json = "mindtickle/services/resources/authorsService/author_api_request_response_body.json"
-    body_json["id"] = str(id)
-    body_json["idBook"] = str(book_id)
-    body_json["firstName"] = str(firstName)
-    body_json["lastName"] = str(lastName)
+    body_json = fileUtils.readJsonFile(resources_folder + os.sep + "author_api_request_response_body.json")
+    body_json["id"] = id
+    body_json["idBook"] = book_id
+    body_json["firstName"] = firstName
+    body_json["lastName"] = lastName
 
     return requests.post(host_url + "/api/v1/Authors",
                          json=body_json,
